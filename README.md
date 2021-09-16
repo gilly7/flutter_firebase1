@@ -1,5 +1,13 @@
 # flutter_firebase
 
+Firebase Firestore Database
+
+Understanding CRUD operations
+- Add Data to firestore
+- Read Data from firestore
+- Update Data in Firestore
+- Delete Data from Firestore
+
 A new Flutter project.
 
 ## Getting Started
