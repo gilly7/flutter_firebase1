@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/screens/home_screen.dart';
+//import 'package:flutter_firebase/screens/home_screen.dart';
 import 'package:flutter_firebase/screens/register_screen.dart';
 import 'package:flutter_firebase/services/auth_service.dart';
 
@@ -15,15 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+        debugShowCheckedModeBanner: false,
         title: 'Flutter Firebase',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+        theme: ThemeData(brightness: Brightness.dark),
         home: StreamBuilder(
           stream: AuthService().firebaseAuth.authStateChanges(),
-          builder: (context, snapshot) {
+          builder: (context, AsyncSnapshot snapshot) {
             if (snapshot.hasData) {
-              return HomeScreen();
+              return HomeScreen(snapshot.data);
             }
             return RegisterScreen();
           },

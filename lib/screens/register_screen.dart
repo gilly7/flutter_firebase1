@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_firebase/login_screen.dart';
 import 'package:flutter_firebase/screens/home_screen.dart';
 import 'package:flutter_firebase/services/auth_service.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 
 class RegisterScreen extends StatefulWidget {
   // const RegisterScreen({Key? key}) : super(key: key);
@@ -93,7 +94,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             Navigator.pushAndRemoveUntil(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomeScreen()),
+                                    builder: (context) => HomeScreen(result)),
                                 (route) => false);
                           }
                         }
@@ -117,7 +118,27 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => LoginScreen()));
                 },
-                child: Text("Already have an account? Login here"))
+                child: Text("Already have an account? Login here")),
+            SizedBox(
+              height: 30,
+            ),
+            Divider(),
+            SizedBox(
+              height: 20,
+            ),
+            loading
+                ? CircularProgressIndicator()
+                : SignInButton(Buttons.Google, text: "Continue with Google",
+                    onPressed: () async {
+                    setState(() {
+                      loading = true;
+                    });
+                    await AuthService().signInWithGoogle();
+
+                    setState(() {
+                      loading = false;
+                    });
+                  })
           ],
         ),
       ),
